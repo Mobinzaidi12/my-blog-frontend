@@ -1,11 +1,26 @@
-import './App.css';
+import Post from "./components/Post";
+import Header from "./components/Header";
+import "./App.css";
+import { Route, Routes } from "react-router-dom";
+import Layout from "./components/Layout";
+import IndexPage from "./components/pages/IndexPage";
+import Login from "./components/pages/Login";
+import Register from "./components/pages/Register";
+import { toast, ToastContainer } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
+
 
 function App() {
   return (
-    <div className="App">
-
-
-    </div >
+    <Routes>
+      <Route path="/" element={<Layout />}>
+        <Route index element={
+          <IndexPage />
+        }></Route>
+        <Route path="/login" element={<Login />} />
+        <Route path="/register" element={<Register />} />
+      </Route>
+    </Routes>
   );
 }
 
