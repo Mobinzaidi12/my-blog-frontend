@@ -1,5 +1,3 @@
-import Post from "./components/Post";
-import Header from "./components/Header";
 import "./App.css";
 import { Route, Routes } from "react-router-dom";
 import Layout from "./components/Layout";
@@ -12,15 +10,18 @@ import 'react-toastify/dist/ReactToastify.css';
 
 function App() {
   return (
-    <Routes>
-      <Route path="/" element={<Layout />}>
-        <Route index element={
-          <IndexPage />
-        }></Route>
-        <Route path="/login" element={<Login />} />
-        <Route path="/register" element={<Register />} />
-      </Route>
-    </Routes>
+    <>
+      <Routes>
+        <Route path="/" element={<Layout />}>
+          <Route index element={
+            <IndexPage />
+          }></Route>
+          <Route path="/login" element={<Login />} />
+          <Route path="/register" element={<Register />} />
+        </Route>
+      </Routes>
+      <ToastContainer />
+    </>
   );
 }
 

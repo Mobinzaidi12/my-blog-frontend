@@ -1,8 +1,10 @@
 import { useState } from "react";
-import { toast, ToastContainer } from 'react-toastify';
-import 'react-toastify/dist/ReactToastify.css';
+import { toast } from "react-toastify";
+
+
 
 export default function Register() {
+
     const [userName, setUserName] = useState('');
     const [password, setPassword] = useState('');
 
@@ -43,7 +45,6 @@ export default function Register() {
                 <input type="password" placeholder="Password" value={password} onChange={e => setPassword(e.target.value)} />
                 <button>Register</button>
             </form>
-            <ToastContainer />
         </div>
     );
 }

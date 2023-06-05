@@ -1,7 +1,7 @@
 import { useState } from "react"
-import { toast, ToastContainer } from 'react-toastify';
-import 'react-toastify/dist/ReactToastify.css';
 import { useNavigate } from "react-router-dom";
+import { toast } from "react-toastify";
+
 
 export default function Login() {
     const [userName, setUserName] = useState('');
@@ -16,23 +16,23 @@ export default function Login() {
         }
 
 
-        const loginUser = await fetch("http://localhost:4500/api/user/login", {
+        const response = await fetch("http://localhost:4500/api/user/login", {
             method: "POST",
             body: JSON.stringify({ userName, password }),
             headers: {
                 "Content-Type": "application/json"
-            }
+            },
         })
 
-        loginUser = await loginUser.json();
+        let loginUser = await response.json();
 
-        if (!loginUser) {
-            toast.error("please enter your correct email and password", { position: toast.POSITION.TOP_CENTER })
+        if (loginUser.status === false) {
+            toast.error("Please enter your correct email and password", { position: toast.POSITION.TOP_CENTER });
             return;
         }
-
+        loginUser = await loginUser.json()
         localStorage.setItem('users', JSON.stringify(loginUser.user));
-        localStorage.setItem('auth', JSON.stringify(loginUser.auth))
+        localStorage.setItem('token', JSON.stringify(loginUser.auth))
         navigate('/')
     }
 
@@ -43,11 +43,11 @@ export default function Login() {
         <div>
             <form className="login" onSubmit={login}>
                 <h1>Login</h1>
-                <input type="text" placeholder="UserName" value={userName} onChange={e => setUserName()} />
-                <input type="password" placeholder="Password" value={password} onChange={e => setPassword()} />
+                <input type="text" placeholder="UserName" value={userName} onChange={e => setUserName(e.target.value)} />
+                <input type="password" placeholder="Password" value={password} onChange={e => setPassword(e.target.value)} />
                 <button>Login</button>
             </form>
-            <ToastContainer />
+
         </div>
 
     );
