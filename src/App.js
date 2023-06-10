@@ -6,6 +6,7 @@ import Login from "./components/pages/Login";
 import Register from "./components/pages/Register";
 import { toast, ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
+import CreatePost from "./components/pages/CreatePost";
 
 
 function App() {
@@ -15,9 +16,11 @@ function App() {
         <Route path="/" element={<Layout />}>
           <Route index element={
             <IndexPage />
-          }></Route>
+          }>
+          </Route>
           <Route path="/login" element={<Login />} />
           <Route path="/register" element={<Register />} />
+          <Route path="/create" element={<CreatePost />} />
         </Route>
       </Routes>
       <ToastContainer />

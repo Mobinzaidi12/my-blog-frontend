@@ -51,6 +51,7 @@ width: 100%;
 form.login, form.register{
   width: 500px;
   margin: 0px auto;
+  text-align: center;
 }
 
 
@@ -70,6 +71,4 @@ form button{
   color: white;
   font-weight: bold;
 }
-form h1{
-  text-align: center;
-}
+

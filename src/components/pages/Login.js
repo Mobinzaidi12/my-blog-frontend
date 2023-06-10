@@ -3,6 +3,7 @@ import { useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
 
 
+
 export default function Login() {
     const [userName, setUserName] = useState('');
     const [password, setPassword] = useState('');
@@ -30,7 +31,6 @@ export default function Login() {
             toast.error("Please enter your correct email and password", { position: toast.POSITION.TOP_CENTER });
             return;
         }
-        loginUser = await loginUser.json()
         localStorage.setItem('users', JSON.stringify(loginUser.user));
         localStorage.setItem('token', JSON.stringify(loginUser.auth))
         navigate('/')
