@@ -30,25 +30,27 @@ export default function CreatePost() {
     const [file, setFiles] = useState('');
     const navigate = useNavigate();
 
-
-
-
     const createPost = async (e) => {
         e.preventDefault();
 
-        const auther = JSON.parse(localStorage.getItem('users'))._id
+        const author = JSON.parse(localStorage.getItem('users'))._id
 
         const data = new FormData();
         data.set('title', title);
         data.set('summary', summary);
         data.set('content', content);
         data.set('file', file);
-        data.set('auther', auther)
+        data.set('author', author)
 
-        const response = await fetch("http://localhost:4500/api/post/create", {
+        let response = await fetch("http://localhost:4500/api/post/create", {
             method: "POST",
             body: data,
+            headers: {
+                authorization: `bearer ${JSON.parse(localStorage.getItem('token'))}`
+            }
+
         });
+
 
 
         if (response.status === 200) {
