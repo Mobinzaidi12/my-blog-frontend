@@ -5,21 +5,24 @@ export default function IndexPage() {
     const [posts, setPosts] = useState([]);
 
     useEffect(() => {
-        fetchPosts();
+        getPosts();
     }, []);
 
-    const fetchPosts = async () => {
+    const getPosts = async () => {
         try {
             const response = await fetch("http://localhost:4500/api/post/posts", {
                 headers: {
                     authorization: `bearer ${JSON.parse(localStorage.getItem('token'))}`
                 }
             });
+
             if (!response.ok) {
                 throw new Error("Failed to fetch posts");
             }
+
             const data = await response.json();
-            setPosts(data);
+
+            setPosts(data.posts);
         } catch (error) {
             console.error(error);
         }
@@ -27,9 +30,8 @@ export default function IndexPage() {
 
     return (
         <>
-            {posts.length > 0 && posts.map(post => (
-                <Post key={post.id} {...post} />
-            ))}
+            {posts.length > 0 &&
+                posts.map((post) => <Post key={post.id} {...post} />)}
         </>
     );
 }

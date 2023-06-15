@@ -33,7 +33,7 @@ export default function CreatePost() {
     const createPost = async (e) => {
         e.preventDefault();
 
-        const author = JSON.parse(localStorage.getItem('users'))._id
+        const author = JSON.parse(localStorage.getItem('users')).userName;
 
         const data = new FormData();
         data.set('title', title);
@@ -51,8 +51,6 @@ export default function CreatePost() {
 
         });
 
-
-
         if (response.status === 200) {
             toast.success("successfuly", { position: toast.POSITION.TOP_CENTER })
         } else {
@@ -62,7 +60,6 @@ export default function CreatePost() {
         navigate('/')
 
     }
-
 
     return (
         <>
