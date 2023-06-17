@@ -40,6 +40,10 @@ width: 100%;
   margin: 0;  
   font-size: 1.5rem;
 }
+.post h1 a{
+text-decoration: none;
+color: inherit;
+}
 .post .auth{
  display: flex;
  gap: 15px;

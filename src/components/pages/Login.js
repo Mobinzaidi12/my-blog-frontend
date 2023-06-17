@@ -31,7 +31,7 @@ export default function Login() {
             toast.error("Please enter your correct email and password", { position: toast.POSITION.TOP_CENTER });
             return;
         }
-        localStorage.setItem('users', JSON.stringify(loginUser.user));
+
         localStorage.setItem('token', JSON.stringify(loginUser.auth))
         navigate('/')
     }

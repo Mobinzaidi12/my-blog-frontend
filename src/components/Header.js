@@ -3,7 +3,7 @@ import { Link, useNavigate } from "react-router-dom";
 
 export default function Header() {
 
-    const auth = localStorage.getItem('users');
+    const auth = localStorage.getItem('token');
     const navigate = useNavigate();
     const logout = () => {
         localStorage.clear();

@@ -33,14 +33,14 @@ export default function CreatePost() {
     const createPost = async (e) => {
         e.preventDefault();
 
-        const author = JSON.parse(localStorage.getItem('users')).userName;
+
 
         const data = new FormData();
         data.set('title', title);
         data.set('summary', summary);
         data.set('content', content);
         data.set('file', file);
-        data.set('author', author)
+
 
         let response = await fetch("http://localhost:4500/api/post/create", {
             method: "POST",
