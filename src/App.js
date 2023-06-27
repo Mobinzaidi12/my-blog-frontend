@@ -8,6 +8,8 @@ import { toast, ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import CreatePost from "./components/pages/CreatePost";
 import PostPage from "./components/pages/PostPage";
+import UpdatePost from "./components/pages/UpdatePost";
+
 
 
 function App() {
@@ -23,6 +25,7 @@ function App() {
           <Route path="/register" element={<Register />} />
           <Route path="/create" element={<CreatePost />} />
           <Route path="/post/:id" element={<PostPage />} />
+          <Route path="/post/:id/edit" element={<UpdatePost />} />
         </Route>
       </Routes>
       <ToastContainer />

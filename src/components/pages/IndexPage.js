@@ -10,9 +10,9 @@ export default function IndexPage() {
 
     const getPosts = async () => {
         try {
-            const response = await fetch("http://localhost:4500/api/post/posts", {
+            const response = await fetch("http://localhost:4500/api/post/all", {
                 headers: {
-                    authorization: `bearer ${JSON.parse(localStorage.getItem('token'))}`
+                    authorization: `bearer ${localStorage.getItem('token')}`
                 }
             });
 

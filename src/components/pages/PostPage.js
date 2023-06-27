@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { useParams } from "react-router-dom";
+import { Link, useParams } from "react-router-dom";
 import { formatISO9075 } from "date-fns";
 
 export default function PostPage() {
@@ -21,6 +21,7 @@ export default function PostPage() {
             if (response.ok) {
                 const dataPost = await response.json();
                 setPostInfo(dataPost);
+                console.log(dataPost.data)
             } else {
                 throw new Error("Failed to fetch post.");
             }
@@ -38,6 +39,9 @@ export default function PostPage() {
                     <div className="time">
                         <time>{formatISO9075(new Date(postInfo.data.createdAt))}</time>
                         <p>@{postInfo.data.author}</p>
+                        {
+                            postInfo.data.editable && <Link to={`/post/${id}/edit`}>Edits</Link>
+                        }
                     </div>
                     <img src={`http://localhost:4500/${postInfo.data.cover}`} alt="Post Cover" />
                     <div dangerouslySetInnerHTML={{ __html: postInfo.data.content }} />

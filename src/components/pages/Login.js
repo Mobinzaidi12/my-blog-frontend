@@ -32,7 +32,7 @@ export default function Login() {
             return;
         }
 
-        localStorage.setItem('token', JSON.stringify(loginUser.auth))
+        localStorage.setItem('token', loginUser.auth)
         navigate('/')
     }
 
