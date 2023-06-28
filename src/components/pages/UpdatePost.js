@@ -9,6 +9,7 @@ export default function UpdatePost() {
     const [summary, setSummary] = useState("");
     const [content, setContent] = useState("");
     const [file, setFile] = useState("");
+
     const navigate = useNavigate();
 
     useEffect(() => {
@@ -22,11 +23,10 @@ export default function UpdatePost() {
 
                 if (response.ok) {
                     const dataPost = await response.json();
-                    console.log(dataPost);
-                    setTitle(dataPost.title);
-                    setSummary(dataPost.summary);
-                    setContent(dataPost.content);
-                    setFile(dataPost.file);
+                    setTitle(dataPost.data.title);
+                    setSummary(dataPost.data.summary);
+                    setContent(dataPost.data.content);
+                    setFile(dataPost.data.file);
                 } else {
                     throw new Error("Failed to fetch post.");
                 }
@@ -45,29 +45,27 @@ export default function UpdatePost() {
         data.set("title", title);
         data.set("summary", summary);
         data.set("content", content);
-        if (file) {
-            data.set("file", file);
+        if (file?.[0]) {
+            data.set("file", file?.[0]);
         }
 
-        try {
-            const response = await fetch(`http://localhost:4500/api/post/${id}`, {
-                method: "PUT",
-                body: data,
-                headers: {
-                    authorization: `Bearer ${localStorage.getItem("token")}`,
-                },
-            });
+        let response = await fetch(`http://localhost:4500/api/post/${id}`, {
+            method: "PUT",
+            body: data,
+            headers: {
+                authorization: `Bearer ${localStorage.getItem("token")}`,
+            },
+        });
 
-            if (response.ok) {
-                toast.success("Post updated successfully", { position: toast.POSITION.TOP_CENTER });
-                navigate("/");
-            } else {
-                toast.error("Failed to update post", { position: toast.POSITION.TOP_CENTER });
-            }
-        } catch (error) {
-            console.error(error);
-            toast.error("An error occurred while updating the post", { position: toast.POSITION.TOP_CENTER });
+
+        if (response.status === 200) {
+
+            toast.success("Post updated successfully.", { position: toast.POSITION.TOP_CENTER });
+        } else {
+            toast.error("Failed to update post.", { position: toast.POSITION.TOP_CENTER });
         }
+
+        navigate("/");
     };
 
     return (
