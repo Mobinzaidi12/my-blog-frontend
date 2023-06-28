@@ -9,7 +9,6 @@ export default function UpdatePost() {
     const [summary, setSummary] = useState("");
     const [content, setContent] = useState("");
     const [file, setFile] = useState("");
-    const [isLoading, setIsLoading] = useState(true);
     const navigate = useNavigate();
 
     useEffect(() => {
@@ -23,18 +22,16 @@ export default function UpdatePost() {
 
                 if (response.ok) {
                     const dataPost = await response.json();
-                    setTitle(dataPost.data.title);
-                    setSummary(dataPost.data.summary);
-                    setContent(dataPost.data.content);
-                    setFile(dataPost.data.file);
+                    console.log(dataPost);
+                    setTitle(dataPost.title);
+                    setSummary(dataPost.summary);
+                    setContent(dataPost.content);
+                    setFile(dataPost.file);
                 } else {
                     throw new Error("Failed to fetch post.");
                 }
             } catch (error) {
                 console.error(error);
-                toast.error("Failed to fetch post.", { position: toast.POSITION.TOP_CENTER });
-            } finally {
-                setIsLoading(false);
             }
         };
 
@@ -48,30 +45,30 @@ export default function UpdatePost() {
         data.set("title", title);
         data.set("summary", summary);
         data.set("content", content);
-        if (file?.[0]) {
-            data.set("file", file?.[0]);
+        if (file) {
+            data.set("file", file);
         }
 
-        let response = await fetch(`http://localhost:4500/api/post/${id}`, {
-            method: "PUT",
-            body: data,
-            headers: {
-                authorization: `Bearer ${localStorage.getItem("token")}`,
-            },
-        });
+        try {
+            const response = await fetch(`http://localhost:4500/api/post/${id}`, {
+                method: "PUT",
+                body: data,
+                headers: {
+                    authorization: `Bearer ${localStorage.getItem("token")}`,
+                },
+            });
 
-        if (response.status === 200) {
-            toast.success("Post updated successfully.", { position: toast.POSITION.TOP_CENTER });
-        } else {
-            toast.error("Failed to update post.", { position: toast.POSITION.TOP_CENTER });
+            if (response.ok) {
+                toast.success("Post updated successfully", { position: toast.POSITION.TOP_CENTER });
+                navigate("/");
+            } else {
+                toast.error("Failed to update post", { position: toast.POSITION.TOP_CENTER });
+            }
+        } catch (error) {
+            console.error(error);
+            toast.error("An error occurred while updating the post", { position: toast.POSITION.TOP_CENTER });
         }
-
-        navigate("/");
     };
-
-    if (isLoading) {
-        return <p>Loading...</p>; // Show a loading state while fetching data
-    }
 
     return (
         <>
